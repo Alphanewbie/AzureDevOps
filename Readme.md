@@ -9,7 +9,7 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
 ![basic-django](./basic-django.png)
 ## 장고 설치
 1. `pip list`로 장고 설치 여부 확인
-2. `pip install pip install django=2.1.15`로 설치
+2. `pip install django==2.1.15`로 설치
     - 이 버전을 설치한 이유 : 안정성을 위해 그 윗 버전은 너무 최신 버전이라서 안정정이 아직이래.
 3. `pip list`로 장고 설치 여부 확인
 4. `djanggo-admin.py startproject [프로젝트이름]`으로 실행.
