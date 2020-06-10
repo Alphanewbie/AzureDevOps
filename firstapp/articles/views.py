@@ -35,6 +35,7 @@ def picsum(request):
 
 # 이 두번째 이름은 무조건 맞춰줘야한다.
 def hello(request, name):
+
     context = {
         'name': name,
     }
@@ -42,6 +43,7 @@ def hello(request, name):
 
 
 def iam(request, name, age):
+
     context = {
         'name': name,
         'age': age,
@@ -60,24 +62,26 @@ def multi(request, num1, num2):
     return render(request, 'multi.html', context)
 
 
-def dtl_practice(request) :
+def dtl_practice(request):
     foods = ['짜장면', '초밥', '차돌짬뽕', '콩국수']
     empty_list = []
     messages = 'Life is shorts, You need Python'
     datetime_now = datetime.now()
 
     context = {
-        'foods' : foods,
-        'empty_list' : empty_list,
-        'messages' : messages,
-        'datetime_now' : datetime_now
+        'foods': foods,
+        'empty_list': empty_list,
+        'messages': messages,
+        'datetime_now': datetime_now,
     }
-    return render(request,'dtl_practice.html',context)
+    return render(request, 'dtl_practice.html', context)
 
-def palindrome(request,word) :
-    check = True if word == word[::-1] else False
+
+def palindrome(request, word):
+    check = '맞습니다.' if word == word[::-1] else '아닙니다.'
+
     context = {
-        'check' : check,
-        'word' : word,
+        'check': check,
+        'word': word,
     }
     return render(request, 'palindrome.html', context)
