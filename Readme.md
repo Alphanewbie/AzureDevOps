@@ -88,3 +88,4 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
     ```
 14. `firstapp/articles/`안에 `templates/` 디렉토리 만든다.
     - 반드시 template**s**여야 한다.
+

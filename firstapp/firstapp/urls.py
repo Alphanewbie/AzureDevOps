@@ -20,4 +20,13 @@ from articles import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
+    path('dinner/', views.dinner),
+    path('picsum/', views.picsum),
+    # 밑에 2개는 같다. str이 디폴트 값이다.
+    path('hello/<str:name>/',views.hello),
+    path('hello/<name>/',views.hello),
+    path('hello/<str:name>/<int:age>/',views.iam),
+    path('multi/<int:num1>/<int:num2>/',views.multi),
+    path('dtl',views.dtl_practice),
+    path('palindrome/<str:word>',views.palindrome),
 ]

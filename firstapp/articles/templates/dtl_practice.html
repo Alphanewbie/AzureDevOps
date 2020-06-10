@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {# 한줄 주석 #}
+    <h3>1. 반복문</h3>
+    {% for food in foods %}
+        <p> {{ food }} </p>
+    {% endfor %}
+
+    <!-- 숫자를 붙혀서 반복한다. -->
+    {% for food in foods %}
+        <p> {{ forloop.counter }} {{food}} </p>
+    {% endfor %}
+
+    {% comment "option" %} 
+        어떤 구역인지 표시해주는 기능?
+    {% endcomment %}
+
+    <!-- 만약 시퀸스가 비어 있다면 아래를 출력한다. -->
+    {% for element in empty_list %}
+        <p>{{ element }}</p>
+    {% empty %}
+        <p>지금 아무것도 없네요.</p>
+    {% endfor %}
+
+    <hr>
+
+    <h3>2. 조건문</h3>
+    {% if '짜장면' in foods %}
+        <p>짜장면 이 있어요.</p>
+    {% endif %}
+
+    {% for food in foods %}
+        <!--만약 루프의 첫 번째 일때-->
+        {% if forloop.first %}
+            <p>짜장면에 고추가루를 넣는다.</p>
+        {% else %}
+            <p>{{ food }}</p>
+        {% endif %}
+    {% endfor %}
+
+    <h3>3. length filter</h3>
+    {% for food in foods %}
+        {# 변수 뒤쪽에 파이프라인(|)을 넣고 필터 이름을 넣는다. #}
+        {# https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#built-in-filter-reference #}
+        {% if food|length > 2 %}
+            <p>{{ food }}, {{food|length}} </p>
+        {% endif %}
+
+    {% endfor %}
+
+    <h3>4. lorem</h3>
+    {# lorem하고 탭하면 더미 텍스트 #}
+    {# lorem2 하면 2글자의 더미텍스트를 넣는다. 만약 더 크게 하고 싶다면 더 채우면 된다. #}
+    {# https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#lorem #}
+    <p>{% lorem %}</p>
+    <hr>
+    {# w 단어 n개를 뽑는다. random 무작위로 3개를 뽑는다.#}
+    {% lorem 3 w %}
+    {% lorem 4 w random %}
+
+    <h3>5. 글자수 제한</h3>
+    {# 단어 3개까지만 뽑는다. #}
+    <p> {{ messages|truncatewords:3 }} </p>
+    {# 글자 3개를 출력한다. 하지만 ... 도 글자로 포함되서 같이 계산해서 뽑아야한다.#}
+    <p> {{ messages|truncatechars:3 }} </p>
+    <p> {{ messages|truncatechars:1 }} </p>
+    <p> {{ messages|truncatechars:10 }} </p>
+
+    <h3>6. 글자 관련 필터</h3>
+    <p>{{ 'ABC'|lower }}</p>
+    <p>{{ messages|title }}</p>
+    <p>{{ 'abc edf' | capfirst }}</p>
+    <p>{{ foods|random }}</p>
+
+    <h3>7. 연산</h3>
+    {# 4+6 이 나온다#}
+    <p>{{ 4|add:6 }}</p>
+    {# add만 있는 이유 : 이건 뷰니까. #}
+
+    <h3>8. 날짜 표현</h3>
+    {# https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#now #}
+    <p>{{datetime_now}}</p>
+    {# 기본적인 태그로도 가능하긴 하다 #}
+    <p>{% now "DATETIME_FORMAT" %}</p>
+    <p>{% now "SHORT_DATETIME_FORMAT" %}</p>
+    <p>{% now "DATE_FORMAT" %}</p>
+    <p>{% now "SHORT_DATE_FORMAT" %}</p>
+</body>
+</html>
