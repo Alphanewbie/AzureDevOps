@@ -29,4 +29,6 @@ urlpatterns = [
     path('multi/<int:num1>/<int:num2>/',views.multi),
     path('dtl',views.dtl_practice),
     path('palindrome/<str:word>',views.palindrome),
+    path('throw',views.throw),
+    path('catch/',views.catch),
 ]

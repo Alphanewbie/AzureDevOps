@@ -5,6 +5,7 @@
 # 4. local django
 
 import random
+from pprint import pprint
 from datetime import datetime
 from django.shortcuts import render
 
@@ -85,3 +86,27 @@ def palindrome(request, word):
         'word': word,
     }
     return render(request, 'palindrome.html', context)
+
+def throw(request) :
+    return render(request, 'throw.html')
+
+def catch(request) :
+    # HTTP method 중 GET 
+    # form 에서 중요한 것
+    # 1. 데이터를 어디로 보낼 것인지 =>
+    # 2. 어떤 방식으로 보낼지 =>
+    # 3. 어떤 데이터를 보낼지 => input, type
+    # 4. 데이터의 이름은 어떻게 붙일지
+    # 5. 제출 => submit
+
+    # pprint(request.META)
+    # print(request.GET)
+    # print(request.GET.get('message'))
+    message = request.GET.get('message')
+    happy = request.GET.get('happy')
+    context = {
+        'message' : message,
+        'happy' : happy,
+    }
+    
+    return render(request, 'catch.html', context)
