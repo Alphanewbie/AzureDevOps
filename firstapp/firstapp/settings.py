@@ -125,4 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+# 나중에 배포할때 붙는 주소이다. 이미지를 보면 시작 주소가 이거다.
 STATIC_URL = '/static/'
+
+# 이걸 붙혀줘야 한다. 이 위치에 이미지를 저장함으로써 배포 시에도 이미지를 접근할 수 있게 한다.
+# 장고가 기본적으로 알고 있는 주소 
+# app_name/templates/
+# app_name/static/
+# 즉 자기 앱 주소만 알고 있다. 다른 앱의 파일에 접근하고 싶을때 사용하는 방법인가?
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'firstapp', 'static'),
+]

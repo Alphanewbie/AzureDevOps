@@ -215,4 +215,30 @@ TEMPLATES = [
 1. 일단 static을 load한다
 2. extends 밑에 `{% load static %}`
    - extends는 무조건 최상단이여야한다.
-3. 
+3. setting.py에 가서 static 밑에 붙힌다.
+    ```python
+    # 이걸 붙혀줘야 한다. 이 위치에 이미지를 저장함으로써 배포 시에도 이미지를 접근할 수 있게 한다.
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'firstapp', 'static'),
+    ]
+    ```
+4. 그리고 firstapp의 하단에 static을 만들어 주고 pages의 static을 갖다 붙힌다.
+
+
+1. URL로직 분리
+   - 기본 URL이 바뀌어 버려 지금까지 작성된 모든 URL을 ㄱ다시 손봐줘야함.
+   
+   - 그건 어려우니 그냥 URL에 일믈 만들자
+2. URL NAME
+   - 그런데 두개의 앱의 URL이 같다면
+   
+   - 어떤 앱의 URL이름인지 app_name을 설정하자
+3. URL NAMESPACE
+   - 분명히 두번째 app의 index 주소로 요청을 보냈는데, 템플렛을 계속 첫번째 URL만 가져온다.
+     - 한번에 합쳐서 관리 하기 때문에 첫번째 만 가져오는 것이다.
+4. DjangoNameSpace
+   - app_name/templates 이후에 app_name폴더를 하나 더 둠으로써 이름 공강을 생성한다.
+
+    - 여러 페이지에 동일한 구조를 적용 시키고 싶다.
+    - 템플렛의 자사용성에 초점
+5. Template Inheritance
