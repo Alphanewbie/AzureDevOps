@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>팰린드롬 체크</h1>
     <p>{{ word }}는 팰린드롬이 {{ check }}</p>
-</body>
-</html>
+{% endblock  %}

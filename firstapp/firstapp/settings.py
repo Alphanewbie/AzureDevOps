@@ -59,7 +59,10 @@ ROOT_URLCONF = 'firstapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 앱 디렉토리가 아니라 추가적으로 추가할 경로
+        'DIRS': [
+            os.path.join(BASE_DIR, 'firstapp', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

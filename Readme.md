@@ -10,6 +10,7 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
 ## 장고 설치
 1. `pip list`로 장고 설치 여부 확인
 2. `pip install django==2.1.15`로 설치
+    
     - 이 버전을 설치한 이유 : 안정성을 위해 그 윗 버전은 너무 최신 버전이라서 안정정이 아직이래.
 3. `pip list`로 장고 설치 여부 확인
 4. `djanggo-admin.py startproject [프로젝트이름]`으로 실행.
@@ -19,10 +20,13 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
     - 이때만 `djanggo-admin.py` 명령어를 사용한다.
 5. 생성된 프로젝트명 디렉토리로 들어간다.
 6. `python manage.py runserver`로 장고 서버 실행
+    
     - `http://127.0.0.1:8000/`로 들어갔는데 로켓 날아가고 있으면 끝.
 7. 생성된 프로젝트 디렉토리에 들어가면  `__init__.py`로 들어가면 비어있는 파일인데, 이건 패키지 파일로 만들어주기 위한 역활
+    
     - 나머지 3개는 모듈
 8. `python manage.py startapp articles`로 article 을 만든다.
+    
     - 하나의 프로젝트는 여러 앱을 가지게 된다.
 9. 각각 설명
     - admin.py관리자의 페이지를 수정하는 곳
@@ -87,6 +91,7 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
         return render(request,[templesname])
     ```
 14. `firstapp/articles/`안에 `templates/` 디렉토리 만든다.
+    
     - 반드시 template**s**여야 한다.
 
 ----
@@ -116,21 +121,23 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
             ]
         ```
     4. 기존에 존재하던 `from django.urls import path`에 include를 붙힌다.
+        
         - `from django.urls import path, include`
     5. `path('articles/',include('articles.urls')),`넣는다.
+       
        - 만약 `articles/*`라는 형식, articles라는 url까지만 보면 저쪽으로 넘긴다는 의미이다.
     6. 수정 이후
         ``` python
             from django.contrib import admin
-            from django.urls import path, include
+        from django.urls import path, include
             from articles import views
-
+    
             urlpatterns = [
                 path('admin/', admin.site.urls),
                 path('articles/',include('articles.urls')),
-            ]
+        ]
         ```
-
+    
 16. 각 앱 디렉토리에 각 URL에 이름을 붙힐 수도 있다
     1. html 내의 출력값으로 `{% url 'artii_result' %}`
     2. `path('index/', views.index, name="index"),` 같은 방식으로 name으로 별칭을 명시해 준다.
@@ -147,4 +154,65 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
         ...
     ]
     ```
-    
+
+## 장고의 리소스 관리
+1. 장고는 기본적으로 templates를 app_name/templates에서 찾는다.
+2. 장고는 기본적으로 static을 app_name/static에서 찾는다.
+
+### 템플릿 상속
+1. 앱의 베이스 디렉토리에 `templates`를 생성한다.
+   - 이 경우에는 `firstapp/firstapp`디렉토리
+2. 그리고 html 파일을 생성
+3. ```django
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Document</title>
+       <!-- CSS only -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+   </head>
+   <body>
+       <div class="container">
+           {# 이 블락 안에 자식 템플릿이 들어온다.#}
+           {% block content %}
+           {% endblock  %}
+       </div>
+   
+   <!-- JS, Popper.js, and jQuery -->
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+   </body>
+   </html>
+   ```
+4. {% block content %} {% endblock  %} 로 태그를 알려준다.
+5. 그리고 원하는 html로 가서 {% extends 'base.html' %}로 상속을 선언한다.
+6. {% block content %} {% endblock  %}로 템플릿에 포함 시킬 부분을 명시한다.
+7. 마지막으로 setting.py
+``` python
+TEMPLATES = [
+    {
+        # 앱 디렉토리가 아니라 추가적으로 추가할 경로
+        'DIRS': [
+            # 점점 깊어지는 경로를 알려준다.
+            # OS별로 /가 다르기 때문에 join으로 합쳐줘야한다.
+            # 그래서 os.path로 os가 가지고 있는 /의 종류를 가져온다.
+            os.path.join(BASE_DIR, 'firstapp', 'templates')
+        ],
+        ...
+        'OPTIONS': {
+            ...
+        },
+    },
+]
+```
+
+### static
+- 웹 사이트의 구성 요소 중에서 images, css, js파일과 같이 해당 내용이 고정되어, 응답을 할때도 별도의 처리 없이 파일 내용을 전부 가져온다.
+
+1. 일단 static을 load한다
+2. extends 밑에 `{% load static %}`
+   - extends는 무조건 최상단이여야한다.
+3. 

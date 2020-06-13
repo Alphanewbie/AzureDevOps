@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     {# 한줄 주석 #}
     <h3>1. 반복문</h3>
     {% for food in foods %}
@@ -91,5 +86,4 @@
     <p>{% now "SHORT_DATETIME_FORMAT" %}</p>
     <p>{% now "DATE_FORMAT" %}</p>
     <p>{% now "SHORT_DATE_FORMAT" %}</p>
-</body>
-</html>
+{% endblock  %}

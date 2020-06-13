@@ -5,6 +5,7 @@
 # 4. local django
 
 import random
+import requests
 from pprint import pprint
 from datetime import datetime
 from django.shortcuts import render
@@ -22,7 +23,7 @@ def dinner(request):
     context = {
         'pick': pick,
     }
-    return render(request, 'dinner.html', context)
+    return render(request, 'articles/dinner.html', context)
     # return render(request, template_name='dinner.html', context={'pick': pick})
 
 
@@ -32,7 +33,7 @@ def picsum(request):
     context = {
         'imgLink': imgLink
     }
-    return render(request, 'picsum.html', context)
+    return render(request, 'articles/picsum.html', context)
 
 # 이 두번째 이름은 무조건 맞춰줘야한다.
 def hello(request, name):
@@ -40,7 +41,7 @@ def hello(request, name):
     context = {
         'name': name,
     }
-    return render(request, 'hello.html', context)
+    return render(request, 'articles/hello.html', context)
 
 
 def iam(request, name, age):
@@ -49,7 +50,7 @@ def iam(request, name, age):
         'name': name,
         'age': age,
     }
-    return render(request, 'whoareyou.html', context)
+    return render(request, 'articles/whoareyou.html', context)
 
 
 def multi(request, num1, num2):
@@ -60,7 +61,7 @@ def multi(request, num1, num2):
         "num2": num2,
         "result": result,
     }
-    return render(request, 'multi.html', context)
+    return render(request, 'articles/multi.html', context)
 
 
 def dtl_practice(request):
@@ -75,7 +76,7 @@ def dtl_practice(request):
         'messages': messages,
         'datetime_now': datetime_now,
     }
-    return render(request, 'dtl_practice.html', context)
+    return render(request, 'articles/dtl_practice.html', context)
 
 
 def palindrome(request, word):
@@ -85,10 +86,10 @@ def palindrome(request, word):
         'check': check,
         'word': word,
     }
-    return render(request, 'palindrome.html', context)
+    return render(request, 'articles/palindrome.html', context)
 
 def throw(request) :
-    return render(request, 'throw.html')
+    return render(request, 'articles/throw.html')
 
 def catch(request) :
     # HTTP method 중 GET 
@@ -109,11 +110,11 @@ def catch(request) :
         'msg_list': msg_list,
     }
     
-    return render(request, 'catch.html', context)
+    return render(request, 'articles/catch.html', context)
 
 
 def lotto_throw(request):
-    return render(request, 'lotto_throw.html')
+    return render(request, 'articles/lotto_throw.html')
 
 
 def lotto_catch(request):
@@ -124,7 +125,7 @@ def lotto_catch(request):
         'name': name,
         'pick': pick,
     }
-    return render(request, 'lotto_catch.html', context)
+    return render(request, 'articles/lotto_catch.html', context)
 
 
 def artii(request):
@@ -133,13 +134,13 @@ def artii(request):
     context = {
         'fonts_list': fonts_list,
     }
-    return render(request, 'artii.html', context)
+    return render(request, 'articles/artii.html', context)
 
 
 def artii_result(request):
     # 1. form에서 넘어온 데이터를 받는다.
-    word = request.GET.get('word')
-    font = request.GET.get('font')
+    word = requests.GET.get('word')
+    font = requests.GET.get('font')
 
     # 2. ARTII api fontlist로 요청을 보내 폰트 정보를 받는다.
     # response = requests.get('http://artii.herokuapp.com/fonts_list').text
@@ -155,9 +156,9 @@ def artii_result(request):
     ARTII_URL = f'http://artii.herokuapp.com/make?text={word}&font={font}'
 
     # 5. Artii api 주소로 우리가 만든 데이터와 함께 요청을 보낸다.
-    result = requests.get(ARTII_URL).text
+    result = request.get(ARTII_URL).text
 
     context = {
         'result': result,
     }
-    return render(request, 'artii_result.html', context)
+    return render(request, 'articles/artii_result.html', context)
