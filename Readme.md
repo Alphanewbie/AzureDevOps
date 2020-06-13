@@ -89,3 +89,62 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
 14. `firstapp/articles/`안에 `templates/` 디렉토리 만든다.
     - 반드시 template**s**여야 한다.
 
+----
+
+15. 나중에 app이 너무 많아졌을 때, `python manage.py startapp [새 앱을 만든다.]`
+    1.  setting 에 새로운 앱을 등록한다.
+    2.  기존에 존재하는 `artilce` 즉, 첫번째 app 디렉토리에 `urls.py`를 새로 생성한다.
+    3.  ``` python
+            from django.urls import path
+            from . import views
+
+            urlpatterns = [
+                path('admin/', admin.site.urls),
+                path('index/', views.index),
+                path('dinner/', views.dinner),
+                path('picsum/', views.picsum),
+                # 밑에 2개는 같다. str이 디폴트 값이다.
+                path('hello/<str:name>/',views.hello),
+                path('hello/<name>/',views.hello),
+                path('hello/<str:name>/<int:age>/',views.iam),
+                path('multi/<int:num1>/<int:num2>/',views.multi),
+                path('dtl',views.dtl_practice),
+                path('palindrome/<str:word>',views.palindrome),
+                path('throw',views.throw),
+                path('catch/',views.catch),
+                path('lotto/',views.randomnum),
+            ]
+        ```
+    4. 기존에 존재하던 `from django.urls import path`에 include를 붙힌다.
+        - `from django.urls import path, include`
+    5. `path('articles/',include('articles.urls')),`넣는다.
+       - 만약 `articles/*`라는 형식, articles라는 url까지만 보면 저쪽으로 넘긴다는 의미이다.
+    6. 수정 이후
+        ``` python
+            from django.contrib import admin
+            from django.urls import path, include
+            from articles import views
+
+            urlpatterns = [
+                path('admin/', admin.site.urls),
+                path('articles/',include('articles.urls')),
+            ]
+        ```
+
+16. 각 앱 디렉토리에 각 URL에 이름을 붙힐 수도 있다
+    1. html 내의 출력값으로 `{% url 'artii_result' %}`
+    2. `path('index/', views.index, name="index"),` 같은 방식으로 name으로 별칭을 명시해 준다.
+    3. `app_name = 'articles'`같은 방식으로 태그도 붙혀준다.
+       1. 태그를 붙혔을 때 위의 모습은 `{% url 'articles:artii_result' %}`
+    4. 완성본
+    ```python
+    from django.urls import path
+    from . import views
+
+    app_name = 'articles'
+    urlpatterns = [ 
+        path('index/', views.index, name="index"),
+        ...
+    ]
+    ```
+    

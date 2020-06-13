@@ -11,7 +11,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'articles/index.html')
 
 
 def dinner(request):
@@ -103,10 +103,61 @@ def catch(request) :
     # print(request.GET)
     # print(request.GET.get('message'))
     message = request.GET.get('message')
-    happy = request.GET.get('happy')
+    msg_list = ['안녕', '방가방가', '전쪽']
     context = {
         'message' : message,
-        'happy' : happy,
+        'msg_list': msg_list,
     }
     
     return render(request, 'catch.html', context)
+
+
+def lotto_throw(request):
+    return render(request, 'lotto_throw.html')
+
+
+def lotto_catch(request):
+    name = request.GET.get('name')
+    numbers = range(1, 46)
+    pick = sorted(random.sample(numbers, 6))
+    context = {
+        'name': name,
+        'pick': pick,
+    }
+    return render(request, 'lotto_catch.html', context)
+
+
+def artii(request):
+    response = requests.get('http://artii.herokuapp.com/fonts_list').text
+    fonts_list = response.split('\n')
+    context = {
+        'fonts_list': fonts_list,
+    }
+    return render(request, 'artii.html', context)
+
+
+def artii_result(request):
+    # 1. form에서 넘어온 데이터를 받는다.
+    word = request.GET.get('word')
+    font = request.GET.get('font')
+
+    # 2. ARTII api fontlist로 요청을 보내 폰트 정보를 받는다.
+    # response = requests.get('http://artii.herokuapp.com/fonts_list').text
+    # print(type(response))
+    
+    # 3. 문자열 데이터를 리스트로 변환한다.
+    # fonts_list = response.split('\n')
+    # print(fonts_list)
+
+    # 4. fonts_list에서 폰트 하나 선택
+    # font = random.choice(fonts_list)
+    
+    ARTII_URL = f'http://artii.herokuapp.com/make?text={word}&font={font}'
+
+    # 5. Artii api 주소로 우리가 만든 데이터와 함께 요청을 보낸다.
+    result = requests.get(ARTII_URL).text
+
+    context = {
+        'result': result,
+    }
+    return render(request, 'artii_result.html', context)
