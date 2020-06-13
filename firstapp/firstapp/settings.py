@@ -133,6 +133,13 @@ STATIC_URL = '/static/'
 # app_name/templates/
 # app_name/static/
 # 즉 자기 앱 주소만 알고 있다. 다른 앱의 파일에 접근하고 싶을때 사용하는 방법인가?
+
+# 장고가 모르는 주소를 추가해줘야 할때
+## templates
+##- settings.py - TEMPLATES - DIRS
+## project/static/
+##- settings.py - STATICFILES_DIRS
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'firstapp', 'static'),
 ]
