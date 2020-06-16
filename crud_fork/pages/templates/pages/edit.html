@@ -1,0 +1,15 @@
+{% extends 'boot.html' %}
+
+{% block content %}
+    
+    <div class="container">
+        <h1> edit! </h1>
+        <form action="{% url 'pages:update' board.pk %}" method = "POST">
+            {% csrf_token %}
+            <input type="text" name="title" value = "{{board.title}}"><br>
+            <textarea name="contents"  cols="23" rows="10">{{board.contents}}</textarea><br>
+            <button class = "btn btn-primary">수정</button>
+        </form>
+    </div>
+    
+{% endblock content %}

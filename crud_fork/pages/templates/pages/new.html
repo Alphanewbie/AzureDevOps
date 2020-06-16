@@ -1,0 +1,15 @@
+{% extends 'boot.html' %}
+
+{% block content %}
+    
+    <div class="container">
+        <h1> NEW! </h1>
+        <form action="{% url 'pages:create' %}" method = "POST">
+            {% csrf_token %}
+            <input type="text" name="title"><br>
+            <textarea name="contents" id="" cols="23" rows="10"></textarea><br>
+            <button class = "btn btn-primary">제출</button>
+        </form>
+    </div>
+    
+{% endblock content %}

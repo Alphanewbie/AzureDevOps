@@ -1,7 +1,7 @@
-1. `python manage.py startapp articles`
-   
-    - 앱 생성
-    
+python manage.py startapp articles`
+
+- 앱 생성
+
 2. `models.py` 작성
 
     -  테이블 정의. 테이블의 구조, 스키마
@@ -241,5 +241,12 @@ article.delete()
             return redirect('articles:detail',pk)
     ```
 ### UPDATE(EDIT)
-- EDIT
+- Edit
+
+  - edit form을 만들어 주는 링크
+
+    
+
 - Update
+
+  - 새로운 sql을 만들어준다.

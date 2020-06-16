@@ -1,0 +1,14 @@
+{% extends "boot.html" %}
+
+{% block content %}
+    <h2>{{board.pk}} 번 글</h2>
+    <hr>
+    <h3>{{board.title}}</h3>
+    <p>{{board.contents}}</p>
+    <form action="{% url 'pages:delete' board.pk %}" method="post">
+        {% csrf_token %}
+        <button class = "btn btn-primary">삭제</button>
+    </form>
+    <a href="{% url 'pages:edit' board.pk %}">edit</a>
+    <a href="{% url 'pages:index' %}">Back</a>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends "boot.html" %}
+
+{% block content %}
+    <h1>Index</h1>
+    <div class="container">
+        {% for board in boards %}
+            <h3>{{ board.title }}</h3>
+            <hr>
+            <p> {{ board.contents }}</p>
+            <a href="{% url 'pages:detail' board.pk %}">Detail</a>
+        {% endfor %}
+    </div>
+{% endblock content %}
