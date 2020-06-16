@@ -6,7 +6,7 @@ from .models import Article
 class ArticleAdmin(admin.ModelAdmin) :
     # list_display를 상속한다.
     # 테이블을 바로 보여 준다.
-    list_display = ['pk','title','contetn']
+    list_display = ['pk','title','content']
     # 테이블을 바로 수정할 수 있게 한다.
     list_editable = ['title']
 

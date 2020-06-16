@@ -23,21 +23,21 @@ def create(request):
     # CSRF 검증에 실패했습니다. 요청을 중단하였습니다.
     # POST의 경우에는 보통 데이터베이스에 조작을 가하기 때문에 최소한의 신원확인이 필수이다.
     title = request.POST.get('title')
-    contetn = request.POST.get('contetn')
+    content = request.POST.get('content')
 
     # 2. db에 저장
     # article = Article()
     # article.title = title
-    # article.contetn = contetn
+    # article.content = content
     # article.save()
 
-    article = Article(title=title, contetn=contetn)
+    article = Article(title=title, content=content)
     # 데이터가 유효한지 검사
     # 데이터를 저장할 타이밍이 나온다.
     article.save()
     article.pk
     # 이건 데이터를 저장할 시간이 안나온다. 그래서 잘 안쓰임
-    # Article.objects.create(title=title, contetn=contetn)
+    # Article.objects.create(title=title, content=content)
 
     # return render(request, 'articles/index.html')
     return redirect('articles:detail', article.pk)
@@ -55,7 +55,29 @@ def detail(request, pk):
 
 
 def delete(request, pk):
-    article = Article.objects. get(pk=pk)
-    article.delete()
+    if request.method == 'POST' :
+        article = Article.objects.get(pk=pk)
+        article.delete()
+        return redirect('articles:index')
+    else :
+        return redirect('articles:detail',pk)
 
-    return redirect('articles:index')
+
+def edit(request, pk) :
+    article = Article.objects.get(pk=pk)
+    context = {
+        'article' : article,
+    }
+    return render(request,'articles/edit.html',context)
+
+
+def update(request, pk) :
+    article = Article.objects.get(pk=pk)
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+
+    article.title = title
+    article.content = content
+    article.save()
+
+    return redirect('articles:detail',pk)

@@ -218,6 +218,28 @@ article.delete()
         <button class="btn btn-primary">작성</button>
     </form>
     ```
-- 그리고 F12누르고 네트워크 탭으로 들어가면 csrf를 보낸 것을 볼 수 있다.
-
+- 콘솔창의 네트워크 탭으로 들어가면 csrf를 보낸 것을 볼 수 있다.
     ![그림1](./그림1.png)
+
+### Delete 
+- 삭제의 경우에도 단순히 GET으로 보내면 삭제 되는 경우를 방지하기 위해
+    ``` dajango
+        <form action="{% url 'articles:delete' article.pk %}" method = "POST">
+            {% csrf_token %}
+            {# 단 이래도 주소값으로 바로 보내는 형식이면 삭제가 된다. 받는 형식이 GET도 받기 때문에 #}
+            <button>삭제</button>
+        </form>
+    ```
+- 그리고 매서드도 POST만 수신하도록 만든다.
+    ```python
+        def delete(request, pk):
+        if request.method == 'POST' :
+            article = Article.objects. get(pk=pk)
+            article.delete()
+            return redirect('articles:index')
+        else :
+            return redirect('articles:detail',pk)
+    ```
+### UPDATE(EDIT)
+- EDIT
+- Update
