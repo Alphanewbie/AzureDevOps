@@ -4,10 +4,10 @@
 <h1>NEW</h1>
 <form action="{% url 'articles:create' %}" method="POST">
   {% csrf_token %}
-  {# https://docs.djangoproject.com/en/3.0/topics/forms/#working-with-form-templates #}
+  {% comment %} {# https://docs.djangoproject.com/en/3.0/topics/forms/#working-with-form-templates #}
    <h3>Version 1</h3>
   {{ form.as_p }}
- <hr>
+ <hr> {% endcomment %}
  {% comment %}
   <h3>Version 2</h3>
   <div>
@@ -24,8 +24,7 @@
   <h3>Version 3</h3>
     
     {% for field in form %}
-    <!-- form으로 묶은 이유 - form 이 아니라 field속성이기 때문에 각각으로 묶어주었다. -->
-    <!-- 각각 속성이 부여가 되지 않기 때문에, form.py에 속성을 줘야 한다.-->
+    {% comment %} 부트스트랩 속성은 form속성은 field속성으로 감싸줘야 반영이 되기 때문에 사용한다. {% endcomment %}
     <div class="form-group">
       {{ field.error }}
       {{ field.label_tag }}

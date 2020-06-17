@@ -10,23 +10,24 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
 ## 장고 설치
 1. `pip list`로 장고 설치 여부 확인
 2. `pip install django==2.1.15`로 설치
-    
+   
     - 이 버전을 설치한 이유 : 안정성을 위해 그 윗 버전은 너무 최신 버전이라서 안정정이 아직이래.
 3. `pip list`로 장고 설치 여부 확인
-4. `djanggo-admin.py startproject [프로젝트이름]`으로 실행.
-    - 예) `djanggo-admin.py startproject firstapp`
+4. `django-admin.py startproject [프로젝트이름]`으로 실행.
+    
+    - 예) `django-admin.py startproject firstapp`
     - 단, 프로젝트 이름은 예약어는 안된다.
         - 예) class, test, django..., django-test(하이픈도 사용 금지)
     - 이때만 `djanggo-admin.py` 명령어를 사용한다.
 5. 생성된 프로젝트명 디렉토리로 들어간다.
 6. `python manage.py runserver`로 장고 서버 실행
-    
+   
     - `http://127.0.0.1:8000/`로 들어갔는데 로켓 날아가고 있으면 끝.
 7. 생성된 프로젝트 디렉토리에 들어가면  `__init__.py`로 들어가면 비어있는 파일인데, 이건 패키지 파일로 만들어주기 위한 역활
-    
+   
     - 나머지 3개는 모듈
 8. `python manage.py startapp articles`로 article 을 만든다.
-    
+   
     - 하나의 프로젝트는 여러 앱을 가지게 된다.
 9. 각각 설명
     - admin.py관리자의 페이지를 수정하는 곳
@@ -121,7 +122,7 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
             ]
         ```
     4. 기존에 존재하던 `from django.urls import path`에 include를 붙힌다.
-        
+       
         - `from django.urls import path, include`
     5. `path('articles/',include('articles.urls')),`넣는다.
        
@@ -161,6 +162,7 @@ https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Introduction
 
 ### 템플릿 상속
 1. 앱의 베이스 디렉토리에 `templates`를 생성한다.
+   
    - 이 경우에는 `firstapp/firstapp`디렉토리
 2. 그리고 html 파일을 생성
 3. ```django
@@ -214,6 +216,7 @@ TEMPLATES = [
 
 1. 일단 static을 load한다
 2. extends 밑에 `{% load static %}`
+   
    - extends는 무조건 최상단이여야한다.
 3. setting.py에 가서 static 밑에 붙힌다.
     ```python
