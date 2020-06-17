@@ -4,7 +4,36 @@
 <h1>NEW</h1>
 <form action="{% url 'articles:create' %}" method="POST">
   {% csrf_token %}
+  {# https://docs.djangoproject.com/en/3.0/topics/forms/#working-with-form-templates #}
+   <h3>Version 1</h3>
   {{ form.as_p }}
+ <hr>
+ {% comment %}
+  <h3>Version 2</h3>
+  <div>
+    {{ form.title.errors }}
+    {{ form.title.tag }}
+    {{ form.title }}
+  </div>
+  <div>
+    {{ form.content.errors }}
+    {{ form.content.tag }}
+    {{ form.content }}
+  </div>
+  <hr> {% endcomment %}
+  <h3>Version 3</h3>
+    
+    {% for field in form %}
+    <!-- form으로 묶은 이유 - form 이 아니라 field속성이기 때문에 각각으로 묶어주었다. -->
+    <!-- 각각 속성이 부여가 되지 않기 때문에, form.py에 속성을 줘야 한다.-->
+    <div class="form-group">
+      {{ field.error }}
+      {{ field.label_tag }}
+      {{ field }}
+    </div>
+    {% endfor %}
+    
+ 
   <button class="btn btn-primary">작성</button>
 </form>
 {% endblock %}

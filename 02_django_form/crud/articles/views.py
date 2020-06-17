@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Article
 from .forms import ArticleForm
+from django.views.decorators.http import require_http_methods, require_POST
 
 # Create your views here.
 def index(request):
@@ -11,25 +12,30 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
-def new(request):
-    return render(request, 'articles/new.html')
+# def new(request):
+#     return render(request, 'articles/new.html')
 
-
+# Get과 POST만 받는다.
+@require_http_methods(["GET", "POST"])
 def create(request):
     # POST라는 것은 서버가 이야기 할때 데이터 베이스를 조작한다는 의미이다.
-    if request.method == 'POST' :
+    if request.method == 'POST':
         form = ArticleForm(request.POST)
         # 유효성 검사
         # models.py의 각각의 값이 맞는지 예를 들면 '',NULL, cruf 토큰이 왔는지 아닌지.
         # 그리고 maxlength 만큼 정해진 대로 됬는가.
         # 만약 Flase라면 유효성 검사가 실패한 이유도 같이 넣어서 Flase리턴이 된다.
-        if form.is_valid() :
+        if form.is_valid():
             # 저장하는 리턴값을 그대로 받아서 보내는 장소를 알려준다.
-            article= form.save()
+            # 먼약 폼을 사용하면
+            # title = form.cleaned_data.get('title')
+            # contents = form.cleaned_data.get('contents')
+            # 이런 방식으로 하여야 한다.
+            article = form.save()
             return redirect('articles:detail', article.pk)
     # 하필 포스트로 나누는 이유. POST가 아닌 method 전부
     # 나머지는 데이터 베이스 조작이 아니라 그냥 뷰만 보여주면 된다는 의미이다.
-    else : 
+    else:
         form = ArticleForm()
 
     # 이걸 밖으로 빼는 이유 : if form.is_valid() :에서 false가 된다면 return 값이 없게 된다.
@@ -38,7 +44,7 @@ def create(request):
         # form의 2가지 모습
         # 1. is_valid()에서 통과하지 못한 form(에러메세지를 포함한다.)
         # 2. else 구문의 form
-        'form' : form
+        'form': form
     }
     return render(request, 'articles/new.html', context)
 
@@ -50,24 +56,30 @@ def detail(request, pk):
     }
     return render(request, 'articles/detail.html', context)
 
-def update(request, pk) :
+@require_http_methods(["GET", "POST"])
+def update(request, pk):
     article = Article.objects.get(pk=pk)
     # 작성할꺼면 아래부터 작성하자.
     # 왜냐면 순서대로 생각하기 위해서
     # GET으로 받아서 POST를 반환받기 위해서
     if request.method == 'POST':
         # instance=article을 쓰는 이유 이걸 안 써주면 새로운 인스턴스로 인식해서 새로 글이 써진다.
-        form = ArticleForm(request.POST,instance=article)
-        if form.is_valid() :
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
             # 저장하는 리턴값을 그대로 받아서 보내는 장소를 알려준다.
-            article= form.save()
+            article = form.save()
             return redirect('articles:detail', article.pk)
     else:
         # 이전의 내용을 출력시켜주기 위해서 빈 form이 아니라 내용을 채워서 보낸다.
         # instance라는 매개변수로 article이라는 값을 넣어준다.
         form = ArticleForm(instance=article)
     context = {
-        'form' : form,
+        'form': form,
     }
-    return render(request,'articles/update.html', context)
+    return render(request, 'articles/update.html', context)
 
+@require_POST
+def delete(request, pk):
+    article = Article.objects.get(pk=pk)
+    article.delete()
+    return redirect('articles:index')

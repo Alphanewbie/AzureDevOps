@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block content %}
-<h1>NEW</h1>
+<h1>update</h1>
 <form action="" method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  {% endbuttons %}
   <button class="btn btn-primary">작성</button>
 </form>
 {% endblock %}
