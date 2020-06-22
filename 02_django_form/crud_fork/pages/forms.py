@@ -1,5 +1,6 @@
 from django import forms
-from .models import Pages
+from .models import Pages, Comment
+
 
 # 모델은 단수형으로
 class PagesForm(forms.ModelForm):
@@ -7,7 +8,7 @@ class PagesForm(forms.ModelForm):
         # 원래는 maxlength가 존재하기 떼문에 알아서 막히지만, 위젯 선언하면 오버라이트 되서 그 옵션이 사라진다.
         max_length=20,
         widget=forms.TextInput(
-            attrs={ 
+            attrs={
                 "class": "form-control",
             }
         )
@@ -19,6 +20,14 @@ class PagesForm(forms.ModelForm):
             }
         )
     )
+
     class Meta:
         model = Pages
         fields = '__all__'
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        field = '__all__'
+        exclude = ('page', )

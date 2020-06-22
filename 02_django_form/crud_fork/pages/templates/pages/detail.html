@@ -1,14 +1,31 @@
-{% extends 'base.html' %}
+{% extends "boot.html" %}
 
 {% block content %}
+<div class="container">
   <h1>DETAIL</h1>
-  <h2>{{ article.pk }} 번 글</h2>
+  <h2>{{ page.pk }} 번 글</h2>
   <hr>
-  <p>제목 : {{ article.title }}</p>
-  <p>내용 : {{ article.content }}</p>
-  <p>작성 시각 : {{ article.created_at }}</p>
-  <p>수정 시각 : {{ article.updated_at }}</p>
+  <p>제목 : {{ page.title }}</p>
+  <p>내용 : {{ page.content }}</p>
+  <p>작성 시각 : {{ page.create_at }}</p>
+  <p>수정 시각 : {{ page.update_at }}</p>
   <hr>
-  <a href="{% url 'articles:update' article.pk %}">update</a>
-  <a href="{% url 'articles:index' %}">back</a>
+  {% comment %} <a href="{% url 'pages:update' page.pk %}">update</a> {% endcomment %}
+  <a href="{% url 'pages:index' %}">back</a>
+
+  <form action="{% url 'pages:comment_create' page.pk %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="입력">
+  </form>
+  <hr>
+  {% for comment in page.comment_set.all %}
+    <form action="{% url 'pages:comment_delete' page.pk comment.pk %}" method="POST">
+      {% csrf_token %}
+        <p>{{comment.cotent}}</p>
+        <button>삭제</button>
+    </form>
+  {% endfor %}
+</div>
+
 {% endblock %}

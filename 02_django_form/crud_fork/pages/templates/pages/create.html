@@ -3,15 +3,9 @@
 
 {% block content %}
     <h3>Form</h3>
-    <form action="" method="post">
-    <div class="form-group">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" value="Submit">
     </form>
 {% endblock content %}
-
-
-
-<input type="text"  name="title" class="form-control" required="" id="id_title">

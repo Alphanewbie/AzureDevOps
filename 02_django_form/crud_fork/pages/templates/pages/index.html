@@ -3,5 +3,15 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<h1>????</h1>
+<div class="container">
+    <h1>index</h1>
+    <hr>
+    {% for page in pages %}
+        <p>글 번호 : {{ page.pk }}</p>
+        <p>글 제목 : {{ page.title }}</p>
+        <p>글 내용 : {{ page.content }}</p>
+        <a href="{% url 'pages:detail' page.pk %}">DETAIL</a>
+        <hr>
+    {% endfor %}
+</div>
 {% endblock content %}}

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84987b53-923c-46cd-9494-8acc77325380" name="Default Changelist" comment="" />
+    <list default="true" id="30e13e7a-1cc3-471d-b748-acc7cb688614" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../02_django_form/crud_fork/pages/templates/pages/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/../02_django_form/crud_fork/pages/templates/pages/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02_django_form/crud_fork/pages/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../02_django_form/crud_fork/pages/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1dFAGUk4raR86VTqLkiYuogkIM9" />
+  <component name="ProjectId" id="1df0DaZqbl2r4ZBvrLHMNnWXjfe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -24,11 +28,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="84987b53-923c-46cd-9494-8acc77325380" name="Default Changelist" comment="" />
-      <created>1592010381983</created>
+      <changelist id="30e13e7a-1cc3-471d-b748-acc7cb688614" name="Default Changelist" comment="" />
+      <created>1592800728781</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1592010381983</updated>
+      <updated>1592800728781</updated>
     </task>
     <servers />
   </component>
