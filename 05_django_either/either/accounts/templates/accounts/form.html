@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 이걸 비워둔 이유 : 이 페이지 하나로 로그인, 회원가입 둘다 하기 위해서 -->
+{% if request.resolver_match.url_name == 'signup' %}
+    <h1>회원가입</h1>
+{% else %}
+    <h1>로그인</h1>
+{% endif %}
+
+<form action="" method = "POST">
+    {% csrf_token %}
+    {{ form }}
+    <button>저장</button>
+</form>
+{% endblock content %}
