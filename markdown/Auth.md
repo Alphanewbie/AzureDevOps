@@ -1,5 +1,7 @@
 장고는 기본적으로 로그인 테이블을 제공한다.
 참고 : https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
+- 유저를 안 쓰더라도 커스텀 유저 선언 하자
+
 
 1. 로그인 폼을 보여주는 것로 로그인 기능을 가져온다. `from django.contrib.auth.forms import UserChangeForm`
 
@@ -60,3 +62,20 @@ Raw passwords are not stored, so there is no way to see this user’s password, 
 ```
 8. `from django.contrib.auth import logout as auth_logout`
     - `auth_logout(request)` : 로그아웃 시키는 함수
+
+
+## 커스텀 유저 모델
+    - https://docs.djangoproject.com/en/3.0/howto/custom-model-fields/
+1. 모델에 유저 선언한다.
+    ``` python
+    from django.db import models
+    from django.contrib.auth.models import AbstractUser
+
+    # Create your models here.
+    clss User(AbstractUser):
+        phone = models.CharField
+    ```
+2. settings.py에 추가한다.
+    - `AUTH_USER_MODEL = 'accounts.User'`
+    - `AUTH_USER_MODEL = '앱이름.유저클래스명'`
+

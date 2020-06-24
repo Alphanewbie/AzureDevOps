@@ -10,5 +10,6 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    pass
-    # chioce = 
+    choice = models.CharField(max_length=100)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

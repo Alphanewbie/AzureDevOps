@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>index</h1>
+<div class="container">
+    <h1>index</h1>
+    <form action="{% url 'todo:create' %}" method ="POST">
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form }}
+            <button>저장</button>
+        </div>
+    </form>
+    <hr>
+    {# user.todo_set.all : 해당 유저만 쓴 글을 가져오게 만드는 방법이다. #}
+    {% for todo in user.todo_set.all %}
+    <form action="{% url 'todo:delete' todo.pk %}" method = "POST">
+        <div class="form-group">
+            {% csrf_token %}
+            <h5>{{ todo.content }} <button>삭제</button></h5>
+        </div>
+    </form>
+</div>
+{% endfor %}
+
 {% endblock body %}

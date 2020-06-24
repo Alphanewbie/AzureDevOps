@@ -4,4 +4,18 @@
     {{ question.title }}
     {{ question.answer_a }}
     {{ question.answer_b }}
+
+    <form action="{% url 'questions:answer_create' question.pk %}" method="POST">
+        {% csrf_token %}
+        {{ answer_form }}
+        <button>저장</button>
+    </form>
+
+    {% comment %} a가 작성한 모든 클래스를 알려줘 question.answer_set.all {% endcomment %}
+    {% for answer in question.answer_set.all %}
+        {{ answer.choice }}
+    {% endfor %}
+    {# 둘이 다르게 출력된다 #}
+    {{ answer_a }}
+    {{ answer_b }}
 {% endblock content %}

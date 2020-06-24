@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 
 # https://docs.djangoproject.com/en/3.0/howto/custom-model-fields/
 # Create your views here.
@@ -38,5 +39,7 @@ def login(request):
     }
     return render(request, 'accounts/form.html', context)
 
+
 def logout(request):
-    return;
+    auth_logout(request)
+    return redirect('accounts:login')
