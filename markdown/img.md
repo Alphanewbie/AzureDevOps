@@ -10,3 +10,11 @@
     # 파일을 저장할 위치
     MEDIA_ROOT = os.path.join(BASE_DIR,"media")
     ```
+
+4. https://pypi.org/project/django-imagekit/
+    - pip install django-imagekit
+
+5. setting에 imagekit을 넣는다.
+    - 이미지 원본을 줄여서 다운 받는 시간을 굉장히 줄여줄수 있다.
+    - 이번에 긁어오는 건 원본을 안 남기는 것
+    - 같은 곳에 원본을 줄여서 출력하는 것도 있음.

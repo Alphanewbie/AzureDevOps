@@ -1,0 +1,20 @@
+<div class="card col-5 m-3" style="width: 18rem;">
+<h5 class="card-header">
+  <img class="rounded-circle" src="https://lh3.googleusercontent.com/ogw/ADGmqu-HRiGp1ehZzWWC49jHEOieOT5ieKDtB-NdvUAB=s32-c-mo" alt="">
+  {{ post.user }}
+</h5>
+  <img src="{{ post.image.url }}" class="card-img-top">
+  <div class="card-body">
+    <a href="{% url 'posts:like' post.id %}">
+    {% if post in user.like_posts.all %}
+      <i class="fas fa-heart" style = "color : red"></i>
+    {% else %}
+      <i class="far fa-heart" style = "color : blue"></i>
+    {% endif %}
+    </a>
+    {% comment %} <h5 class="card-title">Card title</h5> {% endcomment %}
+    <p class="card-text">{{ post.content }}</p>
+    <p class="card-text">{{ post.created_at }}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
