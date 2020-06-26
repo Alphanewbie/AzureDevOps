@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm
 from .models import Post
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -43,10 +44,14 @@ def like(request, pk):
     if post in user.like_posts.all():
         # 이미 누른 경우
         user.like_posts.remove(post)
-        pass
+        liked = False
     else:
         # 좋아요 버튼을 아직 안 누른 경우
         user.like_posts.add(post)
-        pass
-    
-    return redirect('posts:index')
+        liked = True
+        # return redirect('posts:index')
+    context = {
+        'msg' : "좋아요 기능이 동작했습니다.",
+        'liked' : liked,
+    }
+    return JsonResponse(context)

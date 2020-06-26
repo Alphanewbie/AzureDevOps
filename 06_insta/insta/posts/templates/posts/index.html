@@ -6,4 +6,41 @@
       {% include 'posts/card.html' %}
     {% endfor %}
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    // 이벤트의 성질
+    // 1. 누구를
+    // document 문서 전체에서 
+    // fa-heart라는 클래스가 붙어 있는 것을 모조리 가져온다.
+    var likeButtons = document.querySelectorAll('.fa-heart')
+    likeButtons.forEach( (likeButton) => {
+      likeButton.addEventListener('click', (event) => {
+        var targetId = event.target.dataset.id
+        // axios.get('127.0.0.1/')이 생략되어 잇다고 보면 된다.
+        // 저곳으로 요청을 보내는 형태이다. 앞에 / 가 있으면 최상단으로 보낸 후에 요청을 보내는 형태
+        // /가 없으면 현재 위치에서 부터 요청을 보내는 형태
+        // 무조건 `안에 ${}로 해야한다.`
+        // then 성공했을때
+        // catch 실패했을때
+        axios.get(`/posts/${targetId}/like`)
+          .then( (res)=>{
+            //console.log(res.data.liked)
+            if(res.data.liked) {
+              // 좋아요를 누른 경우
+              event.target.style.color = 'red'
+              event.target.classList.remove('far')
+              event.target.classList.add('fas')
+            }
+            else {
+              // 취소를 한 경우
+              event.target.style.color = 'blue'
+              event.target.classList.remove('fas')
+              event.target.classList.add('far')
+            }
+          } ).catch()
+      })
+    } )
+    // 2. 어떻게 했을때
+    // 3. 뭐뭐를 한다.
+  </script>
 {% endblock %}

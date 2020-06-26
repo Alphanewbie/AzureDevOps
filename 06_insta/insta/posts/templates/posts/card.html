@@ -5,13 +5,15 @@
 </h5>
   <img src="{{ post.image.url }}" class="card-img-top">
   <div class="card-body">
-    <a href="{% url 'posts:like' post.id %}">
+    {# <a href="{% url 'posts:like' post.id %}"> #}
     {% if post in user.like_posts.all %}
-      <i class="fas fa-heart" style = "color : red"></i>
+      {# data-id="{{post.id}}"는 몇번 하트인지 확인을 하기 위해 마킹한 도구 #}
+      {# data-xxx 라고 저장을 하면 나중에 data-set으로 호출하면 전부 나온다. #}
+      <i data-id="{{post.id}}" class="fas fa-heart" style = "color : red"></i>
     {% else %}
-      <i class="far fa-heart" style = "color : blue"></i>
+      <i data-id="{{post.id}}" class="far fa-heart" style = "color : blue"></i>
     {% endif %}
-    </a>
+    {# </a> #}
     {% comment %} <h5 class="card-title">Card title</h5> {% endcomment %}
     <p class="card-text">{{ post.content }}</p>
     <p class="card-text">{{ post.created_at }}</p>
