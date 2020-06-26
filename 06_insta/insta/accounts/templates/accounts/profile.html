@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1>profile {{ user_profile.username }}</h1>
+        <div class="row">
+        <div class="col-4">이미지가 들어올 공간</div>
+        <div class="col-8">유저 정도 출력</div>
+        </div>
+            <h5>{{ user_profile.username }}</h5>
+            <p>팔로우 {{ user_profile.follow.count }} 명, 팔로워 {{ user_profile.follower.count }} 명</p>
+    </div>
+    {% if user != user_profile %}
+        {# 내가 user, 상대가 userprofile #}
+        {% if user_profile in user.follow.all %}
+            <a href="{% url 'accounts:follow' user_profile.id %}">팔로우취소</a>
+        {% else %}
+            <a href="{% url 'accounts:follow' user_profile.id %}">팔로우</a>
+        {% endif %}
+    {% endif %}
+    
+{% endblock content %}

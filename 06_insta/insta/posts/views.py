@@ -20,6 +20,7 @@ def create(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            print(post.image)
             post.user = request.user
             post.save()
             return redirect('posts:index')

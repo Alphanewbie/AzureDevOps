@@ -1,7 +1,7 @@
 <div class="card col-5 m-3" style="width: 18rem;">
 <h5 class="card-header">
   <img class="rounded-circle" src="https://lh3.googleusercontent.com/ogw/ADGmqu-HRiGp1ehZzWWC49jHEOieOT5ieKDtB-NdvUAB=s32-c-mo" alt="">
-  {{ post.user }}
+  <a href="{% url 'accounts:profile' post.user.id %}">{{ post.user.username }}</a>
 </h5>
   <img src="{{ post.image.url }}" class="card-img-top">
   <div class="card-body">

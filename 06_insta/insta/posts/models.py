@@ -25,6 +25,8 @@ from imagekit.processors import ResizeToFill
 # User에서는 user.like_post
 # post에서는 post.like_user로 각각 찾아올 수 있다.
 
+# 그리고 데이터 베이스를 보면 저 둘의 관계를 묶어주는 데이터 베이스가 새로 생성되어 있는 것을 알 수 있다.
+
 # Create your models here.
 class Post(models.Model):
     content = models.CharField(max_length=200)
@@ -44,6 +46,9 @@ class Post(models.Model):
     # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL)
     # related_name=로 연결 네임을 정해준다.
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
+    # 만약 포스트 내에서 포스트를 참조하고 싶을 때에는
+    # test_post = models.ManyToManyField('posts/Post', related_name='like_posts')
+    # 이런 식으로 app_name/models명을 불러야 한다. 아니면 self이거나
     
     # ID 순으로 역순으로 정렬하겠다는 뜻이다.
     class Meta:
