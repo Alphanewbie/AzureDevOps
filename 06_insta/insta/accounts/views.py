@@ -13,7 +13,7 @@ def signup(request):
         return redirect('posts:index')
 
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
@@ -52,7 +52,6 @@ def logout(request):
 def profile(request, user_name):
     User = get_user_model()
     user_profile = get_object_or_404(get_user_model(), username=user_name)
-    print(user_profile.follow.all())
     context = {
         'user_profile' : user_profile,
     }

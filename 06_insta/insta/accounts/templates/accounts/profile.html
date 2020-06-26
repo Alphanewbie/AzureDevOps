@@ -1,22 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1>profile {{ user_profile.username }}</h1>
-        <div class="row">
-        <div class="col-4">이미지가 들어올 공간</div>
-        <div class="col-8">유저 정도 출력</div>
+<!-- jumbotron start -->
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <img class="col-12" src="{{ user_profile.image.url }}" alt="">
+            </div>
         </div>
-            <h5>{{ user_profile.username }}</h5>
-            <p>팔로우 {{ user_profile.follow.count }} 명, 팔로워 {{ user_profile.follower.count }} 명</p>
+            <div class="col-8">
+                <h5>{{ user_profile.username }}</h5>
+                <p>팔로우 {{ user_profile.follow.count }}명 팔로워 {{ user_profile.follower.count }}명</p>
+                {% if user != user_profile %}
+                    {# 내가 user, 상대가 userprofile #}
+                    {% if user_profile in user.follow.all %}
+                        <a href="{% url 'accounts:follow' user_profile.id %}">팔로우취소</a>
+                    {% else %}
+                        <a href="{% url 'accounts:follow' user_profile.id %}">팔로우</a>
+                    {% endif %}
+                {% endif %}
+        </div>
     </div>
-    {% if user != user_profile %}
-        {# 내가 user, 상대가 userprofile #}
-        {% if user_profile in user.follow.all %}
-            <a href="{% url 'accounts:follow' user_profile.id %}">팔로우취소</a>
-        {% else %}
-            <a href="{% url 'accounts:follow' user_profile.id %}">팔로우</a>
-        {% endif %}
-    {% endif %}
+<!-- jumbotron end -->
+</div>
+    <hr>
+    {# 클릭하면 배경이 살짝 까매지고 새로 뜨는 것을 modal이라고 한다. #}
+    <div class="row row-cols-3">
+        {% for post in user_profile.post_set.all %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{post.image.url}}" alt="">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     
 {% endblock content %}

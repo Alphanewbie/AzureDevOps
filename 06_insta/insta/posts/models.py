@@ -49,6 +49,7 @@ class Post(models.Model):
     # 만약 포스트 내에서 포스트를 참조하고 싶을 때에는
     # test_post = models.ManyToManyField('posts/Post', related_name='like_posts')
     # 이런 식으로 app_name/models명을 불러야 한다. 아니면 self이거나
+    # 다른 app에 있는 것을 가져오고 싶다면 from 앱 네임,모델 import 모델 이름.
     
     # ID 순으로 역순으로 정렬하겠다는 뜻이다.
     class Meta:
